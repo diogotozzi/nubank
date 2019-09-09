@@ -3,7 +3,7 @@ class Account():
         self.created = False
         self.active_card = False
         self.available_limit = 0
-        self.log = {}
+        self.logs = []
 
     def process(self, event):
         if 'account' in event:
@@ -19,4 +19,4 @@ class Account():
 
     def process_transaction(self, event):
         self.available_limit -= event['amount']
-        self.log.update({'merchant': event['merchant'], 'time': event['time']})
+        self.logs.append({'merchant': event['merchant'], 'time': event['time']})
