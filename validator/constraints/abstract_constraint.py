@@ -13,4 +13,4 @@ class AbstractConstraint(ABC):
         if self._next_validation:
             return self._next_validation.validate(account, event)
 
-        return ''
+        return []

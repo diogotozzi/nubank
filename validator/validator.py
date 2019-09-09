@@ -4,6 +4,6 @@ class Validator():
 
     def validate(self, account, event, constraints = None):
         if constraints is None:
-            return None
+            return []
 
         return constraints.validate(account, event)
