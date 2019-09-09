@@ -22,4 +22,12 @@ def main():
     for line in fileinput.input():
         event = json.loads(line)
 
+        violations = validator.validate(account, event, constraints)
+
+        if violations is '':
+            account.process(event)
+
+        result = {'account': {'activeCard': account.active_card, 'availableLimit': account.available_limit}, 'violations': [violations]}
+        print(str(result))
+
 main()
