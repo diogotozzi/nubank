@@ -16,7 +16,12 @@ def main():
     accountmanager = AccountManager()
 
     constraints = Constraint()
-    constraints.set_next(CreateAccount()).set_next(ActiveCard()).set_next(InsufficientLimit()).set_next(HighFrequencySmallInterval()).set_next(DoubledTransaction())
+    constraints \
+        .set_next(CreateAccount()) \
+        .set_next(ActiveCard()) \
+        .set_next(InsufficientLimit()) \
+        .set_next(HighFrequencySmallInterval()) \
+        .set_next(DoubledTransaction()) \
 
     validator = Validator(constraints)
 
