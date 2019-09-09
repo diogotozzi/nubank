@@ -1,4 +1,4 @@
-from account.account import Account
+from account.account_manager import AccountManager
 
 from validator.constraints.active_card import ActiveCard
 from validator.constraints.constraint import Constraint
@@ -13,22 +13,17 @@ import fileinput
 import json
 
 def main():
-    account = Account()
-
-    validator = Validator()
+    accountmanager = AccountManager()
 
     constraints = Constraint()
     constraints.set_next(CreateAccount()).set_next(ActiveCard()).set_next(InsufficientLimit()).set_next(HighFrequencySmallInterval()).set_next(DoubledTransaction())
 
+    validator = Validator(constraints)
+
     for line in fileinput.input():
         event = json.loads(line)
 
-        violations = validator.validate(account, event, constraints)
-
-        if not violations:
-            account.process(event)
-
-        result = {'account': {'activeCard': account.active_card, 'availableLimit': account.available_limit}, 'violations': violations}
-        print(str(result))
+        accountmanager.events(event).validations(validator)
+        print(accountmanager.process())
 
 main()
