@@ -29,6 +29,8 @@ def main():
         event = json.loads(line)
 
         accountmanager.events(event).validations(validator)
-        print(accountmanager.process())
+        result = accountmanager.process()
+
+        print(json.dumps(result))
 
 main()

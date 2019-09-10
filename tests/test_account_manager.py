@@ -30,7 +30,7 @@ class TestAccountManager(unittest.TestCase):
         pass
 
     def test_accountmanager_create_account_pass(self):
-        event = { "account": { "activeCard": "true", "availableLimit": 100 } }
+        event = { "account": { "activeCard": True, "availableLimit": 100 } }
         self.accountmanager.events(event).validations(Validator(self.constraints))
 
         self.assertEqual(self.accountmanager.process(), {'account': {'activeCard': True, 'availableLimit': 100}, 'violations': []})
@@ -40,13 +40,13 @@ class TestAccountManager(unittest.TestCase):
         self.account.active_card = True
         self.account.available_limit = 100
 
-        event = { "account": { "activeCard": "true", "availableLimit": 100 } }
+        event = { "account": { "activeCard": True, "availableLimit": 100 } }
         self.accountmanager.events(event).validations(Validator(self.constraints))
 
         self.assertEqual(self.accountmanager.process(), {'account': {'activeCard': True, 'availableLimit': 100}, 'violations': ['account-already-initialized']})
 
     def test_accountmanager_create_account_no_active_card_pass(self):
-        event = { "account": { "activeCard": "false", "availableLimit": 100 } }
+        event = { "account": { "activeCard": False, "availableLimit": 100 } }
         self.accountmanager.events(event).validations(Validator(self.constraints))
 
         self.assertEqual(self.accountmanager.process(), {'account': {'activeCard': False, 'availableLimit': 100}, 'violations': []})
@@ -58,7 +58,7 @@ class TestAccountManager(unittest.TestCase):
         self.assertEqual(self.accountmanager.process(), {'account': {'activeCard': False, 'availableLimit': 0}, 'violations': []})
 
     def test_accountmanager_transaction_pass(self):
-        event = { "account": { "activeCard": "true", "availableLimit": 100 } }
+        event = { "account": { "activeCard": True, "availableLimit": 100 } }
         self.accountmanager.events(event).validations(Validator(self.constraints))
         self.accountmanager.process()
 
@@ -68,7 +68,7 @@ class TestAccountManager(unittest.TestCase):
         self.assertEqual(self.accountmanager.process(), {'account': {'activeCard': True, 'availableLimit': 90}, 'violations': []})
 
     def test_accountmanager_transaction_wrong_parameters(self):
-        event = { "account": { "activeCard": "true", "availableLimit": 100 } }
+        event = { "account": { "activeCard": True, "availableLimit": 100 } }
         self.accountmanager.events(event).validations(Validator(self.constraints))
         self.accountmanager.process()
 
