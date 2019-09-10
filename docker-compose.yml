@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  app:
+    build: .
+    volumes:
+      - .:/app
+    networks:
+      - app-network
+networks:
+  app-network:
+    name: app-network
+    driver: bridge

@@ -27,7 +27,7 @@ class AccountManager():
 
     def process_creation(self, event):
         self.account.created = True
-        self.account.active_card = 'true' in event['activeCard'] or False
+        self.account.active_card = True if 'true' == event['activeCard'] else False
         self.account.available_limit = event['availableLimit']
 
     def process_transaction(self, event):
