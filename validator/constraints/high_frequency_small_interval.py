@@ -20,7 +20,7 @@ class HighFrequencySmallInterval(AbstractConstraint):
             transaction = datetime.strptime(logs[i]['time'], "%Y-%m-%dT%H:%M:%S.%fZ")
             comparison = self.base_time - timedelta(seconds = self.seconds)
 
-            if transaction > comparison:
+            if transaction >= comparison:
                 counter += 1
 
             if i == 2 and counter == 3:
